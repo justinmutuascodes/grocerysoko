@@ -10,6 +10,10 @@ import AddProduct from './components/AddProduct';
 import SingleProducts from './components/SingleProduct';
 import AboutUs from './components/AboutUs';
 import 'font-awesome/css/font-awesome.min.css';
+import ContactUs from './components/ContactUs';
+import Cart from './components/Cart';
+import Order from './components/Order';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -22,8 +26,12 @@ function App() {
           <Route path='/addproduct' element={<AddProduct/>}/>
           <Route path='/product' element={<SingleProducts/>}/>
           <Route path='/aboutus' element={<AboutUs/>}/>
+          <Route path='/contactus' element={<ContactUs/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/placeorder' element={<Order/>}/>
         </Routes>
       </Router>
+      <ToastContainer/> 
     </div>
   );
 }

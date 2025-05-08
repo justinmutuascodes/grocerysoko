@@ -15,7 +15,6 @@ const Footer = () => {
                         <br />
                         <b>Founder:</b> Justin Mutua<br />
                         <b>Year founded:</b> 2025.<br />
-                        <b>Headquarters(where based):</b> Street: Factory St, 70507-00400 Tom Mboya St<br />
                         <div>
                             <b>Contact Info</b><br />
                             <Link to="https://www.instagram.com/" target="_blank" className="text-light"><i className="bi bi-instagram" id="icons"></i> </Link>
