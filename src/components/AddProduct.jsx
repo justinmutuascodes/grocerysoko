@@ -1,24 +1,10 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const AddProduct = () => {
-    const navigate = useNavigate();
-    const user = localStorage.getItem("user");
-
-        const checkUser = () => {
-            if (!user) {
-                localStorage.clear();
-                // return navigate("/signin");
-            }
-        };
-
-    useEffect(() => {
-        checkUser();
-    }, []);
-
     let [product_cost, setProductCost] = useState("");
     let [product_desc, setProductDesc] = useState("");
     let [product_name, setProductName] = useState("");
@@ -38,12 +24,12 @@ const AddProduct = () => {
             setLoading("Please wait while we submit your data");
             setSuccess("");
             setError("");
-                const data = new FormData();
-                data.append("product_name", product_name);
-                data.append("product_desc", product_desc);
-                data.append("product_cost", product_cost);
-                data.append("product_photo", product_photo);
-                data.append("category", category);
+            const data = new FormData();
+            data.append("product_name", product_name);
+            data.append("product_desc", product_desc);
+            data.append("product_cost", product_cost);
+            data.append("product_photo", product_photo);
+            data.append("category", category);
             
             const response = await axios.post("https://jay1442.pythonanywhere.com/api/addproduct", data);
 
@@ -104,7 +90,6 @@ const AddProduct = () => {
                     />
                     <br />
 
-                    <label htmlFor="">Product Photo</label>
                     <input
                         ref={fileInputRef}
                         type="file"
@@ -115,17 +100,37 @@ const AddProduct = () => {
                     <br />
 
                     <input
-                        type="text"
-                        required
-                        placeholder="Enter Category"
-                        className="form-control"
                         value={category}
+                        type="text"
+                        placeholder="Enter category"
+                        className="form-control"
+                        required
                         onChange={(e) => setCategory(e.target.value)}
                     />
+                    <br />
 
+                    {/* <select 
+                        name="" 
+                        id=""                         
+                        className="form-control"
+                        value={category}
+                        required
+                        onChange={(e) => setCategory(e.target.value)}>
+                            <option value="">Select Category</option>
+                            <option value="">Fruits</option>
+                            <option value="">Vegetables</option>
+                            <option value="">Baked Products</option>
+                            <option value="">Meat</option>
+                            <option value="">Dairy Products</option>
+                            <option value="">Beverages</option>
+                    </select> */}
+
+
+<br /><br />
                     <button className="btn btn-primary">Add Product</button>
                 </form>
             </div>
+<br /><br />
             <Footer/>
         </div>
     );

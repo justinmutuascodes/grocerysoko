@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -28,14 +17,6 @@
   color: #61dafb;
 }
 
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 #signupbtn:hover{
   background-color: mediumaquamarine;
@@ -45,6 +26,9 @@
   background-color: mediumaquamarine;
 }
 
+.eye{
+  width: 20%;
+}
 
 #signupCard,#signinCard{
   border-color: green;
@@ -99,3 +83,670 @@
 /* #desc{
   background-color: cadetblue;
 } */
+
+.navbar {
+  position: sticky;
+  overflow: hidden;
+  top: 0 ;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  z-index: 50;
+  background: linear-gradient(45deg, #1ec83a, #408e39, #99bd9d); 
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #689a65; /* Blue border */
+  /* padding: 20px 0; */
+  padding-top: 50px;
+  padding-bottom: 50px;
+  transition: background 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect on the navbar */
+.navbar:hover {
+  background: linear-gradient(45deg, #409f79, #468f6f, #87ad8c);
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.9);
+}
+
+/* Navbar container */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #3729b3; 
+  padding-right: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.4s ease, transform 0.3s ease-in-out;
+  margin-right: 50px;
+}
+
+.navbar-logo:hover {
+  color: #fff; /* White on hover */
+  transform: scale(1.25); /* Scale effect */
+  transition-duration: 0.5s;
+}
+
+#cart:hover{
+  transform:scale(1.25);
+  transition-duration: 0.5s;
+}
+
+/* Navbar links container */
+.navbar-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-link {
+  color: white;
+  padding: 30px;
+  padding-right: 50px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  /* position: relative; */
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  margin-top: 50px;
+  background-color: #704082;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: #704082;
+  transform: translateY(-3px);
+}
+
+.navbar-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Icons container */
+.navbar-icons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Icon link styling */
+/* .navbar-icon {
+  color: white;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-icon:hover {
+  color: #1e90ff; 
+  transform: rotate(360deg);
+  transition: transform 0.5s ease, color 0.3s ease;
+} */
+
+/* Sign Up button */
+.navbar-signup, .navbar-login {
+  background-color: #1e90ff; /* Bright Blue */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar-signup:hover, .navbar-login:hover{
+  background-color: #0077cc; /* Darker Blue */
+  transform: scale(1.05);
+  color: #000;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#aboutus{
+  background-image: url(/public/images/cartiii.jpg);  
+  background-size: cover;
+  background-repeat: no-repeat; 
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.why-choose-us {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f9f9f9ce; /* Optional background */
+}
+
+.reasons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  
+}
+
+.reason {
+  width: 300px; /* Adjust as needed */
+  text-align: center;
+}
+
+.reason i {
+  font-size: 2.5em; /* Adjust icon size */
+  color: #408e39; /* Your theme color */
+  margin-bottom: 15px;
+}
+
+.reason h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.reason p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* .navbar-login:hover{
+  background-color: #0077cc;
+  transform: scale(1.05);
+  color: #000;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+} */
+
+.chatbot-container {
+  position: relative;
+  overflow: hidden; /* To contain the sliding animation */
+  width: 300px; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+}
+
+.chatbot-toggle-image {
+  cursor: pointer;
+  display: block; /* Ensure it takes full width if needed */
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  transition: opacity 0.3s ease-in-out; /* Fade effect on the image */
+}
+
+.chatbot-container.chatbot-visible .chatbot-toggle-image {
+  opacity: 0;
+  pointer-events: none; /* Prevent clicks on the hidden image */
+}
+
+.chatbot-wrapper {
+  position: absolute;
+  top: 100%; /* Initially positioned below the container */
+  left: 0;
+  width: 100%;
+  /* Add styles for your chatbot's appearance */
+  background-color: #f0f0f0; /* Example background */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Example shadow */
+  transition: transform 0.3s ease-in-out; /* Slide-up/down transition */
+}
+
+.chatbot-container.chatbot-visible .chatbot-wrapper {
+  transform: translateY(-100%); /* Slide the chatbot into view */
+}
+
+.contact-page {
+  background-image: url('/public/images/online.jpg');
+  background-size: cover; /* Or 'contain' if you prefer the whole image */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100vw;
+  background-position: center;
+  background-color: #f8f9fa; /* Light grey background for fallback */
+  padding: 40px 20px; /* Add some padding around the content */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically by default */
+  align-items: center; /* Center items horizontally */
+}
+
+.contact-details {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: space-around; /* Distribute space between form and info */
+  max-width: 960px; /* Limit the width of the content area */
+  width: 100%;
+  margin-top: 40px; /* Add some space below the header */
+}
+
+.contact-form {
+  flex: 1; /* Allow it to grow */
+  min-width: 300px; /* Minimum width for the form */
+  padding: 20px;
+  background-color: white; /* Give the form a white background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  margin-bottom: 20px; /* Space below the form on smaller screens */
+  margin-right: 20px; /* Add right margin to the left card */
+  margin-bottom: 20px; /* Add bottom margin for smaller screens */
+}
+
+#ig{
+  color: rgb(117, 4, 42);
+}
+
+.fb{
+  color: #0056b3;
+}
+
+.x{
+  color: #1e90ff;
+}
+
+.other-contact-info {
+  flex: 1; /* Allow it to grow */
+  min-width: 300px; /* Minimum width for the info */
+  padding: 20px;
+  background-color: white; /* Give the info a white background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  margin-left: 20px; /* Add left margin to the right card */
+  margin-bottom: 20px; /* Add bottom margin for smaller screens */
+}
+
+/* Style the header */
+.header {
+  text-align: center;
+  color: #333;
+  margin-top: 80px; /* Adjust based on your navbar height */
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .contact-details {
+    flex-direction: column; /* Stack form and info vertically */
+    align-items: center; /* Center them horizontally */
+  }
+
+  .contact-form,
+  .other-contact-info {
+    width: 80%; /* Take up more width on smaller screens */
+    margin-bottom: 20px;
+  }
+}
+
+/* General Container */
+.container {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Page Title */
+h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #007bff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Empty Cart Alert */
+.alert {
+  font-size: 1.2rem;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Product Card */
+.card {
+  border: none;
+  border-radius: 15px; /* Rounded corners */
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.card-img-top {
+  height: 180px; /* Adjusted height */
+  object-fit: cover; /* Ensures image fits within the card */
+  border-bottom: 1px solid #ddd; /* Separator line */
+}
+
+.card-body {
+  padding: 15px;
+  text-align: center; /* Center-align content */
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.text-warning {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffc107; /* Gold color for price */
+}
+
+/* Buttons */
+.card .btn {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%; /* Full-width buttons */
+}
+
+.card .btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  margin-bottom: 10px; /* Spacing between buttons */
+}
+
+.card .btn-danger:hover {
+  background-color: #c82333;
+}
+
+.card .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.text-warning {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body {
+  font-size: 1rem;
+  color: #555;
+}
+
+.modal-body h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.modal-body .form-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body .form-control {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.modal-body .btn {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 2px;
+}
+
+.about-us-paragraph-container {
+  width: 400px; /* Adjust this value to control the width of the text block */
+  /* You might have other styles like margin-bottom */
+}
+
+.about-us-paragraph {
+  text-align: left; /* Ensure left alignment of the text */
+  /* Add other paragraph styles like font-size, color, line-height */
+}
+
+.orders-container {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.checkout-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7653;
+}
+
+.placeorder{
+  background: url(/public/images/pay.jpg);
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns for larger screens */
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.placeorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: #f4f4f4; /* Optional: Page background */
+  padding-bottom: 40px;
+}
+
+.orders-container {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* padding: 30px; */
+  max-width: 600px; /* Adjust as needed */
+  width: 95%; /* Take up most of the width on smaller screens */
+  margin-top: 20px; /* Add some space below the Navbar */
+}
+
+.order-form {
+  padding: 20px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.form-section h3 {
+  margin-top: 0;
+  color: #555;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.place-order-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  display: block;
+  margin-top: 15px;
+}
+
+.place-order-button:hover:enabled {
+  background-color: #1e7e34;
+}
+
+.place-order-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.order-info {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px; /* Add some space above order info */
+}
+
+.order-info h3 {
+  border-bottom-color: #ddd;
+  margin-bottom: 8px;
+}
+
+.order-info .form-group label {
+  font-weight: normal;
+  color: #777;
+}
+
+.order-info .form-control {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+#productcardbtn:hover{
+  background-color: #1a59e0;
+  transform: scale(1.25);
+}

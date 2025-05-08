@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import axios from "axios";
 import Footer from "./Footer";
-import Carousel from "./Carousel";
+
 
 const SignIn = () => {
     let [username, setUsername] = useState("");
@@ -51,8 +51,11 @@ const SignIn = () => {
     return (
         <div className="container-fluid">
             <Navbar />
-            <Carousel />
             <div className="justify-content-center row">
+                
+        <b className="text-warning">{loading}</b>
+        <b className="text-success">{success}</b>
+        <b className="text-danger">{error}</b>
                 <div className="col-md-5 card shadow p-4 mt-5" id="signinCard">
                     <form action="" onSubmit={submitForm}>
                         <h3 className="text-success">Welcome back!! Sign in</h3>
@@ -81,6 +84,8 @@ const SignIn = () => {
                     </form>
                 </div>
             </div>
+
+            <br /><br /><br />
             <Footer />
         </div>
     );
