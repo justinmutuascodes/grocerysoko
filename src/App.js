@@ -31,7 +31,7 @@ function App() {
           <Route path='/placeorder' element={<Order/>}/>
         </Routes>
       </Router>
-      <ToastContainer/>
+      <ToastContainer/> 
     </div>
   );
 }
