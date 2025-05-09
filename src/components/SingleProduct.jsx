@@ -34,7 +34,7 @@ export default SingleProduct;
 
 
 
-// import axios from "axios";
+    // import axios from "axios";
 // import { useState } from "react";
 // import { useLocation, useNavigate} from "react-router-dom";
 // import Navbar from "./Navbar";

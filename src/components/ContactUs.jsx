@@ -47,11 +47,11 @@ const ContactUs = () => {
         </div> */}
       </div>
 
-      <div className="contact-details">
+      {/* <div className="contact-details">
         <div className="contact-form">
           <h2>Send Us a Message</h2>
           <section className="row"> {/* Opening section tag */}
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
               <div className="form-group form-control">
                 <input
                   type="email"
@@ -81,8 +81,8 @@ const ContactUs = () => {
               </button>
               {submissionStatus && <p className="submission-status">{submissionStatus}</p>}
             </form>
-          </section> {/* Closing section tag added here */}
-        </div>
+          </section>
+        </div>*/}
 
         <div className="other-contact-info">
           <h2>Other Ways to Connect</h2>
@@ -91,26 +91,16 @@ const ContactUs = () => {
           <p><strong>Address:</strong>
            Upperhill 5th avenue Appex tower 5th floor<br />
             Nairobi, Kenya
-          </p>
+          </p>  
 
         <div>
             <b>Contact Info</b><br />
-            <Link to="https://www.instagram.com/" target="_blank" className="text-light" id='ig'><i className="bi bi-instagram" id="icons"></i> </Link>
+            <Link to="https://www.instagram.com/" target="_blank" className="text-light" id='instagram'><i className="bi bi-instagram" id="icons"></i> </Link>
             <Link to="https://web.facebook.com/?_rdc=1&_rdr#" target="_blank" className="text-light" id='fb'><i className="bi bi-facebook"></i> </Link>
-            <Link to="https://x.com/" target="_blank" className="text-light" id='x'><i className="bi bi-twitter-x"></i> </Link>
+            <Link to="https://x.com/" target="_blank" className="text-light" id='twitter'><i className="bi bi-twitter-x"></i> </Link>
         </div>
         </div>
-      </div>
 
-      {/* Optional Social Media Links */}
-      <div className="social-links">
-        <a href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer">
-          <img src="/images/facebook-icon.png" alt="Facebook" />
-        </a>
-        <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer">
-          <img src="/images/twitter-icon.png" alt="Twitter" />
-        </a>
-      </div>
     </div>
   );
 };
