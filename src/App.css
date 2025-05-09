@@ -85,23 +85,20 @@
 } */
 
 .navbar {
-  position: sticky;
-  overflow: hidden;
-  top: 0 ;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  z-index: 50;
-  background: linear-gradient(45deg, #1ec83a, #408e39, #99bd9d); 
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid #689a65; /* Blue border */
-  /* padding: 20px 0; */
-  padding-top: 50px;
-  padding-bottom: 50px;
-  transition: background 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 120px !important;
+  z-index: 50 !important;
+  background-image: linear-gradient(45deg, #1ec83a, #408e39, #99bd9d);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2) !important;
+  border-bottom: 2px solid #689a65 !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
-
 /* Hover effect on the navbar */
 .navbar:hover {
   background: linear-gradient(45deg, #409f79, #468f6f, #87ad8c);
@@ -363,7 +360,7 @@
 
 .other-contact-info {
   flex: 1; /* Allow it to grow */
-  min-width: 300px; /* Minimum width for the info */
+  min-width: 100px; /* Minimum width for the info */
   padding: 20px;
   background-color: white; /* Give the info a white background */
   border-radius: 8px;
@@ -749,4 +746,24 @@ h3 {
 #productcardbtn:hover{
   background-color: #1a59e0;
   transform: scale(1.25);
+}
+
+
+
+#instagram{
+  color: palevioletred !important;
+  width: 40px;
+  height: 40px;
+}
+
+#fb{
+  color: deepskyblue !important;
+  width: 40px;
+  height: 40px;
+}
+
+#twitter{
+  color: black !important;
+  width: 40px;
+  height: 40px;
 }

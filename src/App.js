@@ -18,7 +18,7 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <div className="App">
-      <Router> {/* Now using BrowserRouter */}
+      <Router>
         <Routes>
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp/>}/>

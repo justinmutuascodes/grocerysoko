@@ -1,173 +1,136 @@
-import React, { useState } from "react";
-import { useCart } from "./CartContext";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast, ToastContainer, Position } from 'react-toastify'; // Correct import: Position
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './Navbar';
 
-const Cart = () => {
-  const { cart, removeFromCart } = useCart();
-  const [showModal, setShowModal] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState("");
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
-  const img_url = "https://jay1442.pythonanywhere.com/static/images/";
-  const navigate = useNavigate();
+const Order = () => {
+    const location = useLocation();
+    const { totalCost } = location.state || {};
+    const navigate = useNavigate();
 
-  const calculateTotal = () => {
-    return cart.reduce((acc, product) => acc + parseInt(product.product_cost), 0);
-  };
+    const [full_name, setfull_name] = useState('');
+    const [shipping_address, setshipping_address] = useState('');
+    const [phone_number, setphone_number] = useState('');
+    const [order_date] = useState(new Date().toISOString());
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    // const [successMessage, setSuccessMessage] = useState('');
 
-  const handleCheckout = () => {
-    if (cart.length > 0) {
-      navigate('/placeorder', { state: { cartItems: cart, totalCost: calculateTotal() } });
-    } else {
-      alert("Your cart is empty. Please add items to proceed to checkout.");
-    }
-  };
+    const handlePlaceOrder = async (e) => {
+        e.preventDefault();
+        setLoading('Placing Order and Initiating Payment...');
+        setError('');
+        // setSuccessMessage('');
 
-  const submitPayment = async (e) => {
-    e.preventDefault();
-    setLoading("Processing Payment...");
-    setSuccess("");
-    setError("");
+        const formData = new FormData();
+        formData.append("full_name", full_name);
+        formData.append("shipping_address", shipping_address);
+        formData.append("total_cost", totalCost);
+        formData.append("phone_number", phone_number);
+        formData.append("order_date", order_date);
 
-    if (!/^(254)\d{9}$/.test(phone)) {
-      setError("Invalid phone number format. Please enter a valid Kenyan number.");
-      setLoading("");
-      return;
-    }
+        try {
+            const orderResponse = await axios.post("https://jay1442.pythonanywhere.com/api/placeorder", formData); // Changed endpoint
 
-    try {
-      const data = new FormData();
-      const totalAmount = calculateTotal();
-      data.append("amount", totalAmount);
-      data.append("phone", phone);
+            // setSuccessMessage(orderResponse.data.Success);
+            // toast.success(orderResponse.data.Success, {
+            //     // position: Position.TOP_RIGHT, // Correct usage: Position (uppercase P)
+            //     autoClose: 3000,
+            // });
+            toast.success('M-Pesa prompt sent to your phone. Please check and complete the payment.');
 
-      const response = await axios.post("https://jay1442.pythonanywhere.com/api/mpesa_payment", data);
-      setLoading("");
+            // Optionally navigate to an order confirmation page
+            navigate('/' ); // Example: Go back to product list after order
 
-      const orderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
-      const order = {
-        id: orderId,
-        phone: phone,
-        total_amount: totalAmount,
-        items: cart,
-        status: "Order Placed"
-      };
-      localStorage.setItem(`order_${orderId}`, JSON.stringify(order));
-      cart.forEach((item) => removeFromCart(item.cartItemId));
-      setSuccess(`Payment successful! Your Order ID is ${orderId}. You can now track your order.`);
-      setShowModal(false); // Close the modal after successful payment
-    } catch (error) {
-      setLoading("");
-      setError(
-        error.response?.data?.message || error.message || "Something went wrong. Please try again."
-      );
-    }
-  };
+        } catch (orderError) {
+            setError('Failed to place order: ' + orderError.message);
+            toast.error('Failed to place order: ' + orderError.message, {
+                // position: Position.TOP_RIGHT, // Correct usage: Position (uppercase P)
+                autoClose: 5000,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const handleBuyNow = () => {
-    setShowModal(true);
-  };
+    return (
+        <div className="placeorder">
+            <Navbar/>
+            <div className="orders-container">
 
-  return (
-    <div>
-      <Navbar />
-      <div className="container mt-5 pt-5">
-        <h3 className="text-primary mb-4"> <b>YOUR CART</b> </h3>
+                <h2 className='checkout-heading'>Checkout</h2>
+                {/* {successMessage && <div className="alert alert-success">{successMessage}</div>} */}
+                {error && <div className="alert alert-danger">{error}</div>}
 
-        {cart.length === 0 ? (
-          <div className="alert alert-warning text-center">Your cart is empty</div>
-        ) : (
-          <>
-            <div className="row">
-              {cart.map((product, index) => (
-                <div className="col-md-4 mb-4" key={index}>
-                  <div className="card shadow">
-                    <img
-                      src={img_url + product.product_photo}
-                      alt={product.product_name}
-                      className="card-img-top"
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{product.product_name}</h5>
-                      <p className="card-text text-muted">
-                        {product.product_desc}
-                      </p>
-                      <p className="text-warning fw-bold">{product.product_cost} KSh</p>
-                      <button
-                        className="btn btn-danger w-100 mb-2"
-                        onClick={() => removeFromCart(product.cartItemId)}
-                      >
-                        Remove
-                      </button>
-                      {/* Removed individual checkout button */}
+                <form onSubmit={handlePlaceOrder} className="order-form">
+                    <div className="form-group">
+                        <label htmlFor="full_name">Full Name:</label>
+                        <input
+                            type="text"
+                            id="full_name"
+                            className="form-control"
+                            value={full_name}
+                            onChange={(e) => setfull_name(e.target.value)}
+                            required
+                        />
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-4">
-              <h4 className="text-success">Total Ksh{calculateTotal()}</h4>
-              <button className="btn btn-primary mt-4" onClick={handleCheckout}>
-                Proceed to Checkout
-              </button>
-            </div>
-          </>
-        )}
 
-        {/* Payment Modal */}
-        {showModal && (
-          <div className="modal show" tabIndex="-1" style={{ display: "block" }}>
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Pay Via Mpesa</h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={() => setShowModal(false)}
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <h4>Total: KSh {calculateTotal()}</h4>
-                  {error && <div className="alert alert-danger">{error}</div>}
-                  {success && <div className="alert alert-success">{success}</div>}
-                  <form onSubmit={submitPayment}>
-                    <div className="mb-3">
-                      <label className="form-label">Enter MPesa Number (254XXXXXXXXX)</label>
-                      <input
-                        type="tel"
-                        className="form-control"
-                        placeholder="Enter MPesa Number"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                      />
+                    <div className="form-group">
+                        <label htmlFor="shipping_address">Shipping Address:</label>
+                        <textarea
+                            id="shipping_address"
+                            className="form-control"
+                            value={shipping_address}
+                            onChange={(e) => setshipping_address(e.target.value)}
+                            required
+                        />
                     </div>
-                    <button
-                      className="btn btn-primary w-100"
-                      disabled={loading}
-                    >
-                      {loading ? (
-                        <span className="spinner-border spinner-border-sm" />
-                      ) : (
-                        "Pay Now"
-                      )}
+
+                    <div className="form-group">
+                        <label htmlFor="phone_number">Phone Number (for M-Pesa):</label>
+                        <input
+                            type="tel"
+                            id="phone_number"
+                            className="form-control"
+                            placeholder="Enter MPesa Number (254XXXXXXXXX)"
+                            value={phone_number}
+                            onChange={(e) => setphone_number(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="totalCost">Total Cost:</label>
+                        <input
+                            type="text"
+                            id="totalCost"
+                            className="form-control"
+                            value={totalCost}
+                            readOnly
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="order_date">Order Date:</label>
+                        <input
+                            type="text"
+                            id="order_date"
+                            className="form-control"
+                            value={order_date}
+                            readOnly
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                        {loading ? 'Placing Order...' : 'Place Order & Pay'}
                     </button>
-                  </form>
-                </div>
-              </div>
+                </form>
+                <ToastContainer />
             </div>
-          </div>
-        )}
-      </div>
-      <Footer />
-    </div>
-  );
+        </div>
+    );
 };
 
-export default Cart;
+export default Order;

@@ -4,10 +4,11 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = () => {
-  const { cart, removeFromCart } = useCart(); // Use the cart state and functions from context
+  const { cart, removeFromCart, clearCart } = useCart();
   const [showModal, setShowModal] = useState(false);
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState("");
@@ -15,7 +16,6 @@ const Cart = () => {
   const [error, setError] = useState("");
   const img_url = "https://jay1442.pythonanywhere.com/static/images/";
 
-  
   const navigate = useNavigate();
   const { product } = useLocation().state || {};
 
@@ -24,9 +24,15 @@ const Cart = () => {
     return cart.reduce((acc, product) => acc + parseInt(product.product_cost), 0);
   };
 
-  const handleCheckout = () => {
-    navigate('/placeorder', { state: { totalCost: product.product_cost } });
-};
+  // const handleCheckout = () => {
+  //   const totalCost = calculateTotal();
+  //   navigate('/placeorder', { state: { totalCost: totalCost } });
+  // };
+
+    // Handle checkout for a single item
+    const handleSingleCheckout = (product) => {
+      navigate('/placeorder', { state: { totalCost: parseInt(product.product_cost) } });
+    };
 
   // Handle the payment submission
   const submitPayment = async (e) => {
@@ -35,7 +41,6 @@ const Cart = () => {
     setSuccess("");
     setError("");
 
-    // Validate phone number format
     if (!/^(254)\d{9}$/.test(phone)) {
       setError("Invalid phone number format. Please enter a valid Kenyan number.");
       setLoading("");
@@ -43,34 +48,31 @@ const Cart = () => {
     }
 
     try {
-      const data = new FormData();
-      const totalAmount = calculateTotal();
+      const orderData = new FormData();
+      orderData.append("full_name", "Guest User");
+      orderData.append("shipping_address", "Nairobi");
+      orderData.append("total_cost", calculateTotal());
+      orderData.append("phone_number", phone);
+      orderData.append("order_date", new Date().toISOString().slice(0, 10));
 
-      data.append("amount", totalAmount);
-      data.append("phone", phone);
-
-      // Simulate payment request
-      const response = await axios.post("https://jay1442.pythonanywhere.com/api/mpesa_payment", data);
+      const response = await axios.post("https://jay1442.pythonanywhere.com/api/placeorder", orderData); // Call the /api/placeorder endpoint
 
       setLoading("");
+      toast.success("M-Pesa prompt sent to your phone. Please check and complete the payment."); 
 
-      // Create order object
+
       const orderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
       const order = {
         id: orderId,
         phone: phone,
-        total_amount: totalAmount,
+        total_amount: calculateTotal(),
         items: cart,
         status: "Order Placed"
-      }; 
-
-      // Save to localStorage
+      };
       localStorage.setItem(`order_${orderId}`, JSON.stringify(order));
-
-      // Clear cart
-      cart.forEach((item) => removeFromCart(item.cartItemId)); // Corrected here to use cartItemId
-
+      cart.forEach((item) => removeFromCart(item.cartItemId));
       setSuccess(`Payment successful! Your Order ID is ${orderId}. You can now track your order.`);
+      setShowModal(false); // Close the modal after successful payment
     } catch (error) {
       setLoading("");
       setError(
@@ -78,10 +80,15 @@ const Cart = () => {
       );
     }
   };
-
   // Handle the "Buy Now" modal show
   const handleBuyNow = () => {
-    setShowModal(true);
+    const totalCost = calculateTotal();
+    navigate('/placeorder', { state: { totalCost: totalCost, isSingleItem: false, cartItems: cart } });
+  };
+
+  const handleRemoveAll = () => {
+    clearCart();
+    toast.info("Your cart has been cleared."); // Optional: provide feedback to the user
   };
 
   return (
@@ -108,19 +115,23 @@ const Cart = () => {
                     <p className="card-text text-muted">
                       {product.product_desc}
                     </p>
-                    <p className="text-warning fw-bold">{product.product_cost} KSh</p>
+                    <p className="text-warning fw-bold">{product.product_cost} Ksh</p>
 
-                    {/* Fixed remove button, now using cartItemId */}
+
+                <div>
                     <button
-                      className="btn btn-danger w-100 mb-2"
+                      className="btn btn-danger"
                       onClick={() => removeFromCart(product.cartItemId)} // Fixed to use cartItemId
                     >
                       Remove
                     </button>
 
-                    <button className="btn btn-success" onClick={handleCheckout}>
-                        Proceed to Checkout
+
+                    <button className="btn btn-success" onClick={() => handleSingleCheckout(product)}>
+                      Proceed to Checkout
                     </button>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -129,9 +140,13 @@ const Cart = () => {
         )}
 
         {cart.length > 0 && (
-         
+
         <div className="text-center mt-4">
           <h4 className="text-success">Total Ksh{calculateTotal()}</h4>
+          <button className="btn btn-danger mt-2" onClick={handleRemoveAll}>
+              Remove All
+            </button>
+            
           <button className="btn btn-primary mt-4" onClick={handleBuyNow}>
             Buy Now
           </button>
@@ -177,7 +192,7 @@ const Cart = () => {
                     </button>
                   </form>
 
-                 
+
                 </div>
               </div>
             </div>
@@ -185,6 +200,17 @@ const Cart = () => {
         )}
       </div>
       <Footer />
+      <ToastContainer
+        position="top-center"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

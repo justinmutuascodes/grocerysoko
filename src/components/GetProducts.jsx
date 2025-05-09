@@ -6,6 +6,8 @@ import Footer from "./Footer";
 import Carousel from "./Carousel";
 import { useCart } from "./CartContext";
 import Chatbot from "./Chatbot";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GetProducts = () => {
   let [products, setProducts] = useState([]);
@@ -15,6 +17,7 @@ const GetProducts = () => {
   let [filteredProducts, setFilteredProducts] = useState([]);
   let [selectedCategory, setSelectedCategory] = useState(null);
 
+  
   // const containerRef = useRef(null);
   const img_url = "https://jay1442.pythonanywhere.com/static/images/";
   const navigate = useNavigate();
@@ -64,6 +67,11 @@ const GetProducts = () => {
     const filtered = products.filter((product) => product.category === categoryName);
     setFilteredProducts(filtered);
   };
+
+    const handleAddToCart = (product) => {
+      addToCart(product);
+      toast.success(`${product.product_name} added to cart!`);
+    };
 
   return (
     <div className="row">
@@ -120,7 +128,8 @@ const GetProducts = () => {
               <p className="text-muted">{product.product_desc}</p>
               <b className="text-warning">ksh {product.product_cost}</b>
               <button onClick={() => navigate("/product",{state: {product}})} className="btn btn-dark mt-2 w-100" id="productcardbtn">View Details</button>
-              <button onClick={() => addToCart (product)} className="btn btn-warning mt-2 w-100" id="productcardbtn"> Add to Cart</button>
+              {/* <button onClick={() => addToCart (product)} className="btn btn-warning mt-2 w-100" id="productcardbtn"> Add to Cart</button> */}
+              <button onClick={() => handleAddToCart(product)} className="btn btn-warning mt-2 w-100" id="productcardbtn"> Add to Cart</button>
 
 
             </div>
@@ -142,6 +151,17 @@ const GetProducts = () => {
     </div> */}
     <Chatbot/>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
